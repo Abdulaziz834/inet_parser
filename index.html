@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDIST Timetable</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="style.css">
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+    <h1 style="position: absolute;" id="test"></h1>
+    <nav>
+        <ul class="navigation week">
+            <div class="placer"></div>
+            <li class="day">
+                <input type="radio" name="day" id="day-1"><label abbr="Mon" abreviation="Monday"></label>
+            </li>
+            <li class="day">
+                <input type="radio" name="day" id="day-2"><label abbr="Tue" abreviation="Tuesday"></label>
+            </li>
+            <li class="day">
+                <input type="radio" name="day" id="day-3"><label abbr="Wed" abreviation="Wednesday"></label>
+            </li>
+            <li class="day">
+                <input type="radio" name="day" id="day-4"><label abbr="Thu" abreviation="Thursday"></label>
+            </li>
+            <li class="day">
+                <input type="radio" name="day" id="day-5"><label abbr="Fri" abreviation="Friday"></label>
+            </li>
+            <li class="day">
+                <input type="radio" name="day" id="day-6"><label abbr="Sat" abreviation="Saturday"></label>
+            </li>
+            <li class="day">
+                <input type="radio" name="day" id="day-7"><label abbr="Sun" abreviation="Sunday"></label>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <div class="lessons" day="1"></div>
+        <div class="lessons" day="2"></div>
+        <div class="lessons" day="3"></div>
+        <div class="lessons" day="4"></div>
+        <div class="lessons" day="5"></div>
+        <div class="lessons" day="6"></div>
+        <div class="lessons" day="7"></div>
+    </main>
+    <footer>
+        <button class="nav left" data-decrement="true">
+            <object data="./assets/icons/ios-arrow-back.svg"></object>
+            </button>
+        <div class="date">
+            <h3 class="humanized-day" data-day></h3><time datetime="" data-date data-diff="0">28 Nov. 2023</time>
+        </div>
+        <button class="nav right" data-increment="true">
+            <object data="./assets/icons/ios-arrow-forward.svg"></object>
+            </button>
+    </footer>
+
+    <template id="lesson">
+        <div class="lesson">
+            <div class="data">
+                <h2 class="name"></h2>
+                <span class="type" type="lecture"></span>
+                <div class="time"></div>
+                <div class="check"><span class="in">--:--</span> — <span class="out">--:--</span></div>
+            </div>
+            <div class="data">
+                <h4 class="teacher">Arturo Morales Tenorio</h4>
+                <div class="venue">221</div>
+            </div>
+        </div>
+    </template>
+</body>
+
+</html>
