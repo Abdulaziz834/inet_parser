@@ -132,7 +132,7 @@ navBtns.forEach(btn => {
     }
 })
 
-changeDate(Number(date.dataset.diff))
+
 
 
 
@@ -143,73 +143,102 @@ function sorted(list) {
 
 function formatTime(time) {
     return new Date(`2023-12-01T${time}`).toLocaleTimeString("en-uk", { hour: "2-digit", minute: "2-digit" })
-
 }
+
+const accessToken = localStorage.getItem("accessToken"),
+    userReg = document.querySelector(".reg-user");
+
+function getUser(accessToken) {
+    if (!accessToken) {
+        userReg.style.display = "grid";
+        let username, password;
+        userReg.querySelector("#user-login").addEventListener("submit", e => {
+            e.preventDefault()
+            username = userReg.querySelector("input[name=username]").value
+            password = userReg.querySelector("input[name=password]").value
+            fetch('https://inet.mdis.uz/oauth/token', {
+                method: "POST",
+                headers: {
+                    'Authorization': 'Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtY2xpZW50LXBhc3N3b3JkMTIzNA==',
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `username=${username}&password=${password}&grant_type=password`
+            }).then(res => {
+                if (res.status == 200) {
+                    return res.json()
+                }
+                throw new Error(res.status)
+            }).then(text => {
+                localStorage.setItem("accessToken", `Bearer ${text.access_token}`)
+                location.reload()
+            }).catch(() => {
+                getUser()
+            })
+            
+        })
+    }
+    updateData(from, to);
+    changeDate(Number(date.dataset.diff));
+}
+
+getUser(accessToken)
+
+
 
 function updateData(from, to) {
-    fetch('https://inet.mdis.uz/oauth/token', {
-        method: "POST",
+    fetch(`https://inet.mdis.uz/api/v1/education/student/view/schedules?from=${from}&to=${to}`, {
+        method: "GET",
         headers: {
-            'Authorization': 'Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtY2xpZW50LXBhc3N3b3JkMTIzNA==',
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: "username=b2303488&password=brsos2s&grant_type=password"
-    }).then(res => res.json()).then(text => {
-        fetch(`https://inet.mdis.uz/api/v1/education/student/view/schedules?from=${from}&to=${to}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${text.access_token}`
-            }
-        }).then(result => result.json()).then(data => {
-            if (data.data) {
-                let timetable = (sorted(data.data))
-                document.querySelectorAll(".lessons").forEach(lessonsElem => {
-                    lessonsElem.innerHTML = ""
-                    lessonsElem.classList.remove("day-off")
-                })
-                for (let i = 1; i <= 7; i++) {
-                    if (timetable[i]) {
-                        let table = timetable[i].sort((a, b) => a.startTime.localeCompare(b.startTime))
-                        table.forEach(lesson => {
-                            let content = template.content.cloneNode(true)
-                            content.querySelector("h2.name").textContent = lesson.moduleName
-                            content.querySelector("span.type").textContent = lesson.lessonTypeName
-                            content.querySelector("span.type").setAttribute("type", lesson.lessonTypeName.toLowerCase())
-                            content.querySelector(".time").textContent = `${formatTime(lesson.startTime)} - ${formatTime(lesson.endTime)}`
-                            let checkIn = content.querySelector(".check > span.in"),
-                                checkOut = content.querySelector(".check > span.out")
-                            if (lesson.checkIn) {
-                                checkIn.classList.add("green")
-                                if (lesson.checkInDate) {
-                                    checkIn.textContent = new Date(lesson.checkInDate).toLocaleTimeString("en-uk")
-                                }
+            "Authorization": localStorage.getItem("accessToken")
+        }
+    }).then(result => result.json()).then(data => {
+        if (data.data) {
+            let timetable = (sorted(data.data))
+            document.querySelectorAll(".lessons").forEach(lessonsElem => {
+                lessonsElem.innerHTML = ""
+                lessonsElem.classList.remove("day-off")
+            })
+            for (let i = 1; i <= 7; i++) {
+                if (timetable[i]) {
+                    let table = timetable[i].sort((a, b) => a.startTime.localeCompare(b.startTime))
+                    table.forEach(lesson => {
+                        let content = template.content.cloneNode(true)
+                        content.querySelector("h2.name").textContent = lesson.moduleName
+                        content.querySelector("span.type").textContent = lesson.lessonTypeName
+                        content.querySelector("span.type").setAttribute("type", lesson.lessonTypeName.toLowerCase())
+                        content.querySelector(".time").textContent = `${formatTime(lesson.startTime)} - ${formatTime(lesson.endTime)}`
+                        let checkIn = content.querySelector(".check > span.in"),
+                            checkOut = content.querySelector(".check > span.out")
+                        if (lesson.checkIn) {
+                            checkIn.classList.add("green")
+                            if (lesson.checkInDate) {
+                                checkIn.textContent = new Date(lesson.checkInDate).toLocaleTimeString("en-uk")
                             }
-                            if (lesson.checkOut) {
-                                checkOut.classList.add("green")
-                                if (lesson.checkOutDate) {
-                                    checkOut.textContent = new Date(lesson.checkOutDate).toLocaleTimeString("en-uk")
-                                }
+                        }
+                        if (lesson.checkOut) {
+                            checkOut.classList.add("green")
+                            if (lesson.checkOutDate) {
+                                checkOut.textContent = new Date(lesson.checkOutDate).toLocaleTimeString("en-uk")
                             }
+                        }
 
-                            if (lesson.cancelReason) {
-                                let cancel = document.createElement("div");
-                                cancel.classList.add("cancel");
-                                cancel.innerHTML = `<object data="./assets/icons/ios-alert.svg"></object> Cancelled: ${lesson.cancelReason}`;
-                                content.querySelector(".data").appendChild(cancel);
-                                content.querySelector(".check").style.display = "none";
-                            }
-                            content.querySelector("h4.teacher").textContent = lesson.lecturerName.replaceAll("null", "").trim()
-                            content.querySelector(".venue").textContent = lesson.venueName
-                            document.querySelector(`.lessons[day="${i}"]`).appendChild(content)
-                        })
-                    }
-                    else {
-                        document.querySelector(`.lessons[day="${i}"]`).classList.add("day-off")
+                        if (lesson.cancelReason) {
+                            let cancel = document.createElement("div");
+                            cancel.classList.add("cancel");
+                            cancel.innerHTML = `<object data="./assets/icons/ios-alert.svg"></object> Cancelled: ${lesson.cancelReason}`;
+                            content.querySelector(".data").appendChild(cancel);
+                            content.querySelector(".check").style.display = "none";
+                        }
+                        content.querySelector("h4.teacher").textContent = lesson.lecturerName.replaceAll("null", "").trim()
+                        content.querySelector(".venue").textContent = lesson.venueName
+                        document.querySelector(`.lessons[day="${i}"]`).appendChild(content)
+                    })
+                }
+                else {
+                    document.querySelector(`.lessons[day="${i}"]`).classList.add("day-off")
 
-                    }
                 }
             }
-        })
-    });
+        }
+    })
 }
-updateData(from, to)
