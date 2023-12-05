@@ -182,8 +182,14 @@ function getUser(accessToken) {
     updateData(from, to);
     changeDate(Number(date.dataset.diff));
 }
+if (location.search == "?clearLocalStorage") {
+    localStorage.clear()
+    location.replace("./")
+}
 
 getUser(accessToken)
+
+
 
 
 
