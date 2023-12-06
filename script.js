@@ -132,10 +132,6 @@ navBtns.forEach(btn => {
 })
 
 
-
-
-
-
 function sorted(list) {
     return Object.groupBy(list, (li) => li.dayNumber)
 }
@@ -189,10 +185,6 @@ if (location.search == "?clearLocalStorage") {
 
 getUser(accessToken)
 
-
-
-
-
 function updateData(from, to) {
     fetch(`https://inet.mdis.uz/api/v1/education/student/view/schedules?from=${from}&to=${to}`, {
         method: "GET",
@@ -241,6 +233,7 @@ function updateData(from, to) {
                             cancel.innerHTML = `<object data="./assets/icons/ios-alert.svg"></object> Cancelled: ${lesson.cancelReason}`;
                             content.querySelector(".data").appendChild(cancel);
                             content.querySelector(".check").style.display = "none";
+                            content.querySelector(".lesson").classList.add("cancel")
                         }
                         content.querySelector("h4.teacher").textContent = lesson.lecturerName.replaceAll("null", "").trim()
                         content.querySelector(".venue").textContent = lesson.venueName
