@@ -132,8 +132,15 @@ navBtns.forEach(btn => {
 })
 
 
-function sorted(list) {
-    return Object.groupBy(list, (li) => li.dayNumber)
+function sorted(objects, attribute = "dayNumber") {
+    return objects.reduce((grouped, obj) => {
+        const key = obj[attribute];
+        if (!grouped[key]) {
+            grouped[key] = [];
+        }
+        grouped[key].push(obj);
+        return grouped;
+    }, {});
 }
 
 function formatTime(time) {
@@ -172,7 +179,7 @@ function getUser(accessToken) {
             }).catch(() => {
                 getUser()
             })
-            
+
         })
     }
     updateData(from, to);
@@ -216,17 +223,16 @@ function updateData(from, to) {
                             checkOut = content.querySelector(".check > span.out")
                         if (lesson.checkIn) {
                             checkIn.classList.add("green")
-                            if (lesson.checkInDate) {
-                                checkIn.textContent = new Date(lesson.checkInDate).toLocaleTimeString("en-uk")
-                            }
+                        }
+                        if (lesson.checkInDate) {
+                            checkIn.textContent = new Date(lesson.checkInDate).toLocaleTimeString("en-uk")
                         }
                         if (lesson.checkOut) {
                             checkOut.classList.add("green")
-                            if (lesson.checkOutDate) {
-                                checkOut.textContent = new Date(lesson.checkOutDate).toLocaleTimeString("en-uk")
-                            }
                         }
-
+                        if (lesson.checkOutDate) {
+                            checkOut.textContent = new Date(lesson.checkOutDate).toLocaleTimeString("en-uk")
+                        }
                         if (lesson.cancelReason) {
                             let cancel = document.createElement("div");
                             cancel.classList.add("cancel");
