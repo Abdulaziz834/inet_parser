@@ -72,6 +72,8 @@ body {
     gap: 2em;
     background-color: var(--clr-white);
     padding: 3em;
+    border-radius: 0.5em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
 .reg-user h2 {
@@ -102,13 +104,14 @@ body {
     border: 1px solid var(--clr-body-outline);
     border-radius: .5em;
     outline: none;
+    font-size: 14px;
 }
 
-#user-login>input:focus-visible {
+#user-login input:focus-visible {
     border-color: var(--clr-gray-300);
 }
 
-#user-login>input::placeholder {
+#user-login input::placeholder {
     color: var(--clr-body-outline);
 }
 
@@ -135,6 +138,9 @@ body {
     letter-spacing: 1px;
 }
 
+#user-login>button[type='submit']:hover {
+    filter: brightness(.9);
+}
 
 
 
@@ -150,6 +156,7 @@ ul.week {
     background-color: var(--clr-white);
     padding: .75em 1em;
     border-radius: 100vw;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
 ul.week>.placer {
@@ -213,6 +220,7 @@ main {
     border-radius: 1em;
     display: grid;
     gap: 3em;
+    box-shadow: 0 0 10px rgba(0,0,0, .125);
 }
 
 .lesson>.data {
