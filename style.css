@@ -175,6 +175,7 @@ li.day>label::after {
 li.day>input[type='radio'] {
     -webkit-appearance: none;
     appearance: none;
+    display: none;
 }
 
 li.day>input[type='radio']:checked+label::after {
