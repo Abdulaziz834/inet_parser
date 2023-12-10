@@ -25,6 +25,10 @@ figure {
     pointer-events: none;
 }
 
+.text-center {
+    text-align: center;
+}
+
 
 :root {
     --clr-bg: hsl(0, 0%, 90%);
@@ -212,6 +216,7 @@ main {
 .lessons.show {
     display: grid !important;
     opacity: 1;
+    z-index: 1;
 }
 
 .lessons>.lesson {
@@ -331,6 +336,7 @@ footer {
     align-items: center;
     padding-block: .5em;
     color: var(--clr-white);
+    z-index: 100;
 }
 
 footer>button.nav {

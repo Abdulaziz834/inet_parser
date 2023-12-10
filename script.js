@@ -7,7 +7,8 @@ const template = document.querySelector("template#lesson");
 let now = new Date(),
     from = new Date(now.setDate(now.getDate() - (now.getDay() - 1))).toLocaleDateString("fr-ca"),
     to = new Date(now.setDate(now.getDate() + 6)).toLocaleDateString("fr-ca"),
-    touchStart;
+    touchStart,
+    isData = true;
 
 
 function placeHighliter(label) {
@@ -48,30 +49,54 @@ window.addEventListener("touchstart", e => {
     touchStart = e.touches[0].clientX
 })
 
-window.addEventListener("touchend", e => {
-    let action = (touchStart - e.changedTouches[0].clientX) / 100
-    if (action > 0) {
-        if (!Math.floor(action)) return
-        let diff = Number(date.dataset.diff);
+function userNavigation(dir) {
+    let diff = Number(date.dataset.diff);
+    if (!isData) {
+        if (diff > 0) {
+            if (dir == "next") {
+                return 
+            }
+            else {
+                changeDate(diff - 1)
+            }
+        }
+        else if (diff < 0) {
+            if (dir == "next") {
+                changeDate(diff + 1)
+            }
+            else {
+                return 
+            }
+        }
+    }
+    if (dir == "next") {
         changeDate(diff + 1)
     }
-    else if (action < 0) {
-        if (!Math.ceil(action)) return
-        let diff = Number(date.dataset.diff);
+    else {
         changeDate(diff - 1)
+    }
+    isData = true;
+}
+
+window.addEventListener("touchend", e => {
+    let action = (touchStart - e.changedTouches[0].clientX) / 100
+    if (!Math.floor(action)) return
+    if (action > 0) {
+        userNavigation("next")
+    }
+    else if (action < 0) {
+        userNavigation("back")
     }
 })
 
 window.addEventListener("keydown", e => {
     if (e.keyCode == 39) {
         e.preventDefault()
-        let diff = Number(date.dataset.diff);
-        changeDate(diff + 1)
+        userNavigation("next")
     }
     else if (e.keyCode == 37) {
         e.preventDefault()
-        let diff = Number(date.dataset.diff);
-        changeDate(diff - 1)
+        userNavigation("back")
     }
 })
 
@@ -101,12 +126,17 @@ function changeDate(diff) {
     document.querySelector(".lessons.show")?.classList.remove("show")
     let thisLesson = document.querySelectorAll(".lessons")[lastDate.getDay()]
     thisLesson.classList.add("show");
-    thisLesson.animate([
-        { opacity: "0" },
-        { opacity: "1" },
-    ], {
-        duration: 450,
-        iterations: 1,
+    thisLesson.querySelectorAll(".lesson").forEach((lessonItem, index) => {
+        lessonItem.animate([
+            { opacity: "0" },
+            { opacity: "1" },
+        ], {
+            duration: 450,
+            iterations: 1,
+            delay: index * 200,
+            fill: "both",
+            easing: "ease-in-out",
+        })
     })
 
     if (to.localeCompare(lastDateString) == -1 || from.localeCompare(lastDateString) == 1) {
@@ -115,18 +145,18 @@ function changeDate(diff) {
             to = new Date(newDate.setDate(newDate.getDate() + 6)).toLocaleDateString("fr-ca");
         updateData(from, to);
     }
+
 }
 
 
 
 navBtns.forEach(btn => {
     btn.onclick = e => {
-        let diff = Number(date.dataset.diff);
         if (btn.dataset.increment) {
-            changeDate(diff + 1)
+            userNavigation("next")
         }
         else {
-            changeDate(diff - 1)
+            userNavigation("back")
         }
     }
 })
@@ -204,7 +234,7 @@ function updateData(from, to) {
         }
         throw new Error(result.status)
     }).then(data => {
-        if (data.data) {
+        if (data.data.length) {
             let timetable = (sorted(data.data))
             document.querySelectorAll(".lessons").forEach(lessonsElem => {
                 lessonsElem.innerHTML = ""
@@ -251,6 +281,14 @@ function updateData(from, to) {
 
                 }
             }
+        }
+        else {
+            document.querySelectorAll(".lessons").forEach(lessonsElem => {
+                lessonsElem.innerHTML = ""
+                lessonsElem.classList.remove("day-off")
+                isData = false
+                lessonsElem.innerHTML = "<h2 class='no-data text-center'>No further data is available.</h2><p class='text-center'>Sorry pal, we didn't recieved any lessons for further dates. Maybe they are not scheduled yet.</p>"
+            })
         }
     }).catch(error => {
         localStorage.clear()
