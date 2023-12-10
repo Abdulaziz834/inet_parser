@@ -45,9 +45,7 @@ window.onresize = e => {
     })
 }
 
-window.addEventListener("touchstart", e => {
-    touchStart = e.touches[0].clientX
-})
+
 
 function userNavigation(dir) {
     let diff = Number(date.dataset.diff);
@@ -78,13 +76,18 @@ function userNavigation(dir) {
     isData = true;
 }
 
+window.addEventListener("touchstart", e => {
+    touchStart = e.touches[0].clientX
+})
+
 window.addEventListener("touchend", e => {
     let action = (touchStart - e.changedTouches[0].clientX) / 100
-    if (!Math.floor(action)) return
     if (action > 0) {
+        if (!Math.floor(action)) return
         userNavigation("next")
     }
     else if (action < 0) {
+        if (!Math.ceil(action)) return
         userNavigation("back")
     }
 })
