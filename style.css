@@ -336,7 +336,7 @@ footer {
     align-items: center;
     padding-block: .5em;
     color: var(--clr-white);
-    z-index: 100;
+    z-index: 5;
 }
 
 footer>button.nav {
