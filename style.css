@@ -1,63 +1,112 @@
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
+    font: inherit;
+    box-sizing: border-box;
 }
+
+
+html {
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+}
+
 
 body {
     min-height: 100dvh;
-    margin: 0;
-    box-sizing: border-box;
-
 }
 
-:is(ul, ol):not([role='list']) {
+ul:not([role=list]),
+ol:not([role=list]) {
     list-style: none;
 }
 
 picture,
-img {
+img,
+object,
+figure {
     display: block;
 }
 
 object,
 figure {
-    display: block;
     pointer-events: none;
+}
+
+input[type=text],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=email] {
+    border: 0;
+    outline: transparent;
+    background-color: inherit;
+    width: 100%;
+}
+
+button {
+    border: 0;
+    outline: transparent;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .text-center {
     text-align: center;
 }
 
+.medium {
+    font-weight: 500;
+}
+
+.semi-bold {
+    font-weight: 600;
+}
+
+.bold {
+    font-weight: 700;
+}
 
 :root {
-    --clr-bg: hsl(0, 0%, 90%);
-    --clr-white: hsl(0, 0%, 100%);
-    --clr-nav-bg: hsl(130, 50%, 50%);
-    --clr-primary: hsl(200, 77%, 57%);
-    --clr-error: hsl(0, 84%, 61%);
-    --clr-gray-300: hsl(0, 0%, 50%);
-    --clr-lesson-type1-bg: hsl(320, 100%, 40%);
-    --clr-lesson-type2-bg: hsl(35, 100%, 45%);
-    --clr-lesson-type3-bg: hsl(210, 100%, 45%);
-    --clr-body-outline: hsl(0, 0%, 70%);
-    --clr-lesson-cancel-bg: hsl(0 80% 90%);
+    --clr-bg-body: hsl(0, 0%, 93%);
+    --clr-bg-html: hsl(0, 0%, 100%);
+    --clr-text-body: hsl(0, 0%, 0%);
+    --clr-primary: hsl(215, 100%, 50%);
+    --clr-bg-placer: color-mix(in lab, var(--clr-primary) 25%, transparent);
+    --clr-bg-lesson-lecture: hsl(0, 100%, 72%);
+    --clr-bg-lesson-tutorial: hsl(37, 90%, 51%);
+    --clr-bg-lesson-event: hsl(145, 63%, 42%);
+    --clr-text-lesson-time: hsl(0, 0%, 50%);
+    --clr-check-in-false: hsl(0, 75%, 60%);
+    --clr-check-in-true: hsl(145, 64%, 37%);
+    --clr-weekname: hsl(0, 0%, 73%);
+    --clr-outline-body: hsl(0, 0%, 67%);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --clr-bg-body: hsl(0, 0%, 15%);
+        --clr-bg-html: hsl(0, 0%, 13%);
+        --clr-text-body: hsl(0, 0%, 100%);
+        --clr-bg-placer: color-mix(in lab, var(--clr-primary) 20%, transparent);
+        --clr-text-nav-icon: contrast(0) brightness(2);
+    }
 }
 
 html {
-    background-color: var(--clr-white);
-    scrollbar-gutter: stable;
+    background-color: var(--clr-bg-html);
 }
 
-
 body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: var(--clr-bg);
-    display: flex;
-    flex-direction: column;
+    font-family: 'Open Sans', system-ui, sans-serif;
+    padding: 2em;
     max-width: 800px;
     margin-inline: auto;
-    outline: 1px solid var(--clr-body-outline);
+    background-color: var(--clr-bg-body);
+    outline: 1px solid var(--clr-outline-body);
+    color: var(--clr-text-body);
 }
 
 
@@ -66,7 +115,7 @@ body {
     display: none;
     place-items: center;
     inset: 0;
-    background-color: var(--clr-bg);
+    background-color: var(--clr-bg-html);
     z-index: 10;
 }
 
@@ -74,19 +123,34 @@ body {
     display: flex;
     flex-direction: column;
     gap: 2em;
-    background-color: var(--clr-white);
+    background-color: var(--clr-bg-html);
     padding: 3em;
     border-radius: 0.5em;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 10px color-mix(in lab, var(--clr-text-body) 25%, transparent);
 }
 
 .reg-user h2 {
     text-transform: uppercase;
+    font-size: 1.5em;
+
 }
 
 .reg-user #user-login {
     display: grid;
     gap: 0.5em;
+}
+
+#user-login.error::before {
+    content: "Username or password is incorrect!";
+    text-align: center;
+    font-size: .75em;
+    color: var(--clr-check-in-false);
+}
+
+
+#user-login.error input {
+    border-color: var(--clr-check-in-false) !important;
+
 }
 
 #user-login .input-control {
@@ -105,18 +169,19 @@ body {
     box-sizing: border-box;
     font-family: inherit;
     padding: 1em 1.175em;
-    border: 1px solid var(--clr-body-outline);
+    border: 1px solid var(--clr-outline-body);
+    color: var(--clr-text-body);
     border-radius: .5em;
     outline: none;
     font-size: 14px;
 }
 
 #user-login input:focus-visible {
-    border-color: var(--clr-gray-300);
+    border-color: var(--clr-text-lesson-time);
 }
 
 #user-login input::placeholder {
-    color: var(--clr-body-outline);
+    color: var(--clr-outline-body);
 }
 
 .input-control>.icon {
@@ -125,14 +190,14 @@ body {
 
 #user-login>a {
     text-align: right;
-    color: var(--clr-primary);
+    color: color-mix(in lab, var(--clr-primary) 60%, var(--clr-bg-body));
     margin-block: 1em;
     text-decoration: none;
 }
 
 #user-login>button[type='submit'] {
     padding: 1em;
-    background-color: var(--clr-nav-bg);
+    background-color: var(--clr-primary);
     border: none;
     border-radius: .5em;
     cursor: pointer;
@@ -147,239 +212,266 @@ body {
 }
 
 
+header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2em;
+}
+
+header>h1 {
+    font-size: 1.5em;
+}
+
+header span.bold {
+    text-transform: capitalize;
+}
+
+header>.avatar {
+    outline: 2px solid color-mix(in oklab, var(--clr-primary) 70%, white);
+    outline-offset: 1px;
+    border-radius: 1em;
+}
+
+header img {
+    width: 3.75em;
+    aspect-ratio: 1;
+    border-radius: inherit;
+    background-color: var(--clr-text-lesson-time);
+    transition: opacity 300ms linear;
+}
 
 nav {
-    margin-block: 2em;
+    margin-block: 1.25em;
 }
 
-ul.week {
+.calendar {
+    position: relative;
     display: flex;
-    justify-content: space-evenly;
-    width: fit-content;
-    margin-inline: auto;
-    background-color: var(--clr-white);
-    padding: .75em 1em;
-    border-radius: 100vw;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-}
-
-ul.week>.placer {
-    position: absolute;
-    border-radius: 100vw;
-    background-color: var(--clr-nav-bg);
-    transition: left 150ms ease-in-out, width 150ms ease-in-out;
-}
-
-
-li.day {
-    z-index: 1;
-}
-
-li.day>label::after {
-    content: attr(abreviation);
-    font-weight: 500;
-    padding: .125em 0.75em;
+    gap: .5em;
+    justify-content: center;
     user-select: none;
-    transition: color 150ms linear;
+    -webkit-tap-highlight-color: transparent;
 }
 
-li.day>input[type='radio'] {
-    -webkit-appearance: none;
+.calendar>.placer {
+    position: absolute;
+    border-radius: .5em;
+    background-color: var(--clr-bg-placer);
+    transition: left 150ms ease-in-out;
+}
+
+.calendar input[type=radio] {
     appearance: none;
+    -webkit-appearance: none;
     display: none;
 }
 
-li.day>input[type='radio']:checked+label::after {
-    color: var(--clr-white);
+.calendar > li {
+    display: grid;
+    place-items: var(--clr-check-in-true);
 }
 
+.calendar li object {
+    filter: var(--clr-text-nav-icon);
+}
 
+.calendar label {
+    --padding-bottom: 1em;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .25em;
+    padding: .5em .75em var(--padding-bottom) .75em;
+    cursor: pointer;
+    transition: color 150ms ease-in-out;
+}
 
+.calendar input[type=radio]:checked+label {
+    color: var(--clr-primary);
+}
+
+.calendar input[type=radio].today+label::before {
+    position: absolute;
+    content: "";
+    width: 3px;
+    aspect-ratio: 1;
+    background-color: var(--clr-weekname);
+    border-radius: 50%;
+    bottom: calc(var(--padding-bottom) / 2);
+    translate: -25% -25%;
+    transition: background-color 150ms ease-in-out;
+}
+
+.calendar input[type=radio].today:checked+label::before {
+    background-color: var(--clr-primary);
+}
+
+.calendar input[type=radio]:checked+label>span.week-name {
+    color: var(--clr-primary);
+}
+
+span.week-name {
+    font-size: .75em;
+    color: var(--clr-weekname);
+    transition: color 150ms ease-in-out;
+}
 
 main {
     display: grid;
-    grid-template-areas: "stack";
-    padding-inline: 5vw;
-    margin-bottom: auto;
+    grid-template-areas: "title" "lessons";
     align-items: start;
 }
 
-.lessons {
+main>.title {
+    grid-area: title;
+    font-size: 1.25em;
+    margin-block: .75em;
+    text-transform: capitalize;
+}
+
+main > .lessons {
+    grid-area: lessons;
+    margin-block: 2em;
+    display: none;
+    gap: 2em;
+    justify-items: center;
+}
+
+main > .lessons.show {
+    display: grid;
+}
+
+.lessons > .title {
+    font-size: 1.125em;
+}
+
+
+
+.lessons > .loader {
+    display: flex;
+    gap: .5em;
+}
+
+.loader > .bouncer {
+    width: .75em;
+    aspect-ratio: 1;
+    background-color: var(--clr-primary);
+    border-radius: 50%;
+    filter: hue-rotate(calc(var(--i) * 20deg));
+    animation: bounce 1.5s ease-in-out calc(var(--i) * 150ms) infinite,
+    show-up 1s linear;
+}
+
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(2em);
+    }
+}
+
+@keyframes show-up {
+    0%, 75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+.lesson {
+    width: 100%;
+    padding: 1.5em;
     display: grid;
     gap: 2em;
-    margin-bottom: 10vw;
-    grid-area: stack;
-    opacity: 0;
-    display: none !important;
-}
-
-.lessons.show {
-    display: grid !important;
-    opacity: 1;
-    z-index: 1;
-}
-
-.lessons>.lesson {
-    padding: 1.125em 1.5em;
-    background: var(--clr-white);
     border-radius: 1em;
-    display: grid;
-    gap: 3em;
-    box-shadow: 0 0 10px rgba(0,0,0, .125);
+    box-shadow: 0 0 10px color-mix(in lab, var(--clr-text-body) 12.5%, transparent);
+    background-color: var(--clr-bg-html);
+}
+
+.lesson.cancel {
+    background-color: color-mix(in lab, var(--clr-check-in-false) 30%, var(--clr-bg-html));
 }
 
 .lesson>.data {
     display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    gap: 0.85em;
+    gap: .85em;
+    grid-template-columns: 1fr auto;
 }
 
-.lesson>.data .type {
-    font-size: .75em;
-    padding: 0.25em 1em;
-    width: fit-content;
-    color: var(--clr-white);
-    border-radius: 100vw;
-    background: var(--clr-lesson-type2-bg);
+
+.data>.name {
+    font-size: 1.25em;
 }
 
-.lesson>.data .type[type='lecture'] {
-    background: var(--clr-lesson-type1-bg);
-}
-
-.lesson>.data .type[type='tutorial'] {
-    background: var(--clr-lesson-type2-bg);
-}
-
-.lesson>.data .type[type='event'] {
-    background: var(--clr-lesson-type3-bg);
-}
-
-.lesson>.data .time {
-    font-size: 1.125em;
-    color: var(--clr-gray-300);
-}
-
-.lesson>.data .check {
-    grid-column: span 2;
-}
-
-.lesson>.data .check .in,
-.lesson>.data .check .out {
-    font-size: .85em;
-    padding: 0.1em 0.5em;
-    background-color: var(--clr-error);
-    border-radius: 0.25em;
+.data>.type {
+    font-size: 0.75em;
+    line-height: 1;
+    height: fit-content;
+    padding: .25em .75em;
     color: white;
-}
-
-.lesson>.data .check .in.green,
-.lesson>.data .check .out.green {
-    background-color: var(--clr-nav-bg);
-}
-
-
-.lesson>.data>.cancel {
-    display: flex;
-    gap: 0.25em;
-    grid-column: span 2;
-    color: var(--clr-error);
-    font-weight: 500;
-}
-
-.lesson>.data:last-child {
-    grid-template-columns: auto;
-}
-
-.lesson>.data>.venue {
-    text-align: right;
-}
-
-.lesson>.data>.venue::before {
-    content: "Venue: ";
-}
-
-.lesson.cancel {
-    background-color: var(--clr-lesson-cancel-bg);
-}
-
-.lessons.day-off {
-    place-items: center;
-}
-
-.lessons.day-off::before {
-    content: "This day is your day off!";
-    font-size: 1.5em;
-    font-weight: 700;
-    text-align: center;
-}
-
-.lessons.day-off::after {
-    text-align: center;
-    line-height: 1.5;
-    content: "Welcome to your well-deserved day off! Take this opportunity to relax, rejuvenate, and indulge in activities that bring you joy. Enjoy your day!";
-}
-
-
-
-
-footer {
-    position: sticky;
-    width: 90%;
-    margin-inline: auto;
-    display: flex;
-    justify-content: space-around;
-    bottom: 1em;
-    background: var(--clr-primary);
-    border-radius: .5em;
-    align-items: center;
-    padding-block: .5em;
-    color: var(--clr-white);
-    z-index: 5;
-}
-
-footer>button.nav {
-    background: transparent;
-    border: 0;
-    outline: transparent;
-    cursor: pointer;
-}
-
-footer>button.nav>object {
-    width: 24px;
-    aspect-ratio: 1;
-}
-
-footer>.date {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-footer>.date>.humanized-day {
+    border-radius: 50vw;
+    margin-top: 0.417em;
     text-transform: capitalize;
 }
 
-footer>.date>time {
-    font-size: .75em;
+.data>.type[type=lecture] {
+    background-color: var(--clr-bg-lesson-lecture);
+}
+
+.data>.type[type=tutorial] {
+    background-color: var(--clr-bg-lesson-tutorial);
+}
+
+.data>.type[type=event] {
+    background-color: var(--clr-bg-lesson-event);
 }
 
 
+.data>time {
+    color: var(--clr-text-lesson-time);
+}
 
+.data>.check {
+    grid-column: span 2;
+    font-size: .85em;
+}
 
+.check>.in,
+.check>.out {
+    line-height: 1;
+    background-color: var(--clr-check-in-false);
+    color: white;
+    padding: .1em 0.5em;
+    border-radius: .25em;
+}
 
+.check>.in.green,
+.check>.out.green {
+    background-color: var(--clr-check-in-true);
+}
 
-@media (max-width: 765px) {
+.data > .cancel {
+    display: flex;
+    grid-column: span 2;
+    gap: .5em;
+    color: var(--clr-check-in-false);
+}
 
-    .day>label::after {
-        content: attr(abbr) !important;
+@media (max-width: 420px) {
+    body {
+        font-size: 13px;
     }
 }
 
-@media (max-width: 400px) {
-    body {
-        font-size: 14px;
+@media (max-width: 340px) {
+    nav {
+        font-size: 11px;
     }
 }
