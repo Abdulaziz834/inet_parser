@@ -21,8 +21,8 @@ function getCookie(name) {
 
 function getGreeting() {
       const currentHour = new Date().getHours(),
-          salutationElem = document.querySelector("header span.salutation"),
-          salutation = "Day";
+          salutationElem = document.querySelector("header span.salutation");
+    let salutation = "Day";
 
       if (currentHour >= 5 && currentHour < 9) {
         salutation = "Morning";
