@@ -18,6 +18,21 @@ function getCookie(name) {
     return null;
 }
 
+
+function getGreeting() {
+      const currentHour = new Date().getHours();
+
+      if (currentHour >= 5 && currentHour < 9) {
+        return "Good Morning";
+      } else if (currentHour >= 9 && currentHour < 13) {
+        return "Good Day";
+      } else if (currentHour >= 13 && currentHour < 17) {
+        return "Good Afternoon";
+      } else {
+        return "Good Evening";
+      }
+    }
+
 function getUser(username, password) {
     if (!(username && password)) {
         document.querySelector(".reg-user").style.display = "grid";
