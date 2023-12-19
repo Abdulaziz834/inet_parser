@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDIST Plans</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./assets/favicon-circle.png" type="image/png"> 
+    <link rel="apple-touch-icon" href="./assets/favicon-curved.png" type="image/png">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/plans.css">
+
+    <script src="./js/script.js" defer></script>
+    <script src="./js/plans.js" defer></script>
+</head>
+<body>
+    <div class="reg-user">
+        <div class="form-center">
+
+            <h2 class="bold text-center">login to your Account</h2>
+            <form method="POST" id="user-login">
+                <div class="input-control"><input type="text" autocomplete="username" name="username" id="username" placeholder="ID or phone number"><div class="icon"><object data="./assets/icons/ios-person.svg" style="width: 18px; aspect-ratio: 1;"></object></div></div>
+                <div class="input-control"><input type="password" autocomplete="current-password" name="password" id="password" placeholder="Password"><div class="icon"><object data="./assets/icons/ios-key.svg" style="width: 18px; aspect-ratio: 1;"></object></div></div>
+                <a href="https://inet.mdis.uz/auth/forgot-password">Forgot Password?</a>
+                <button type="submit">LOGIN</button>
+            </form>
+        </div>
+    </div>
+    <header>
+        <h1>Good Morning, <br><span class="bold">&nbsp;</span></h1>
+        <div class="avatar">
+            <img src="" onerror="this.style.opacity = '0'" onload="this.style.opacity = '1'">
+        </div>
+    </header>
+    <main>
+        <a href="./index.html"><object data="./assets/icons/ios-arrow-back.svg" style="width: 1em; aspect-ratio: 1; filter: var(--clr-text-nav-icon);"></object>Back to Timetable</a>
+        <table>
+            <caption>Your absents for current semester</caption>
+            <thead>
+                <tr>
+                    <th class="semi-bold">Module</th>
+                    <th class="semi-bold">Lessons</th>
+                    <th class="semi-bold">Absent</th>
+                    <th class="semi-bold">Percent</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </main>
+
+    <template id="attendances">
+        <tr>
+            <td data-cell="module">English Plus (E1)</td>
+            <td data-cell="lessons">72</td>
+            <td data-cell="absent">1</td>
+            <td data-cell="percent">1.39%</td>
+        </tr>
+    </template>
+</body>
+</html>

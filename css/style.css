@@ -5,17 +5,21 @@
     padding: 0;
     font: inherit;
     box-sizing: border-box;
+    touch-action: manipulation;
+
 }
 
 
 html {
     scrollbar-gutter: stable;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 
 body {
     min-height: 100dvh;
+    overflow-x: hidden;
 }
 
 ul:not([role=list]),
@@ -53,6 +57,12 @@ button {
     cursor: pointer;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
 .text-center {
     text-align: center;
 }
@@ -68,6 +78,7 @@ button {
 .bold {
     font-weight: 700;
 }
+
 
 :root {
     --clr-bg-body: hsl(0, 0%, 93%);
@@ -173,7 +184,7 @@ body {
     color: var(--clr-text-body);
     border-radius: .5em;
     outline: none;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 #user-login input:focus-visible {
@@ -241,228 +252,6 @@ header img {
     transition: opacity 300ms linear;
 }
 
-nav {
-    margin-block: 1.25em;
-}
-
-.calendar {
-    position: relative;
-    display: flex;
-    gap: .5em;
-    justify-content: center;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.calendar>.placer {
-    position: absolute;
-    border-radius: .5em;
-    background-color: var(--clr-bg-placer);
-    transition: left 150ms ease-in-out;
-}
-
-.calendar input[type=radio] {
-    appearance: none;
-    -webkit-appearance: none;
-    display: none;
-}
-
-.calendar > li {
-    display: grid;
-    place-items: var(--clr-check-in-true);
-}
-
-.calendar li object {
-    filter: var(--clr-text-nav-icon);
-}
-
-.calendar label {
-    --padding-bottom: 1em;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: .25em;
-    padding: .5em .75em var(--padding-bottom) .75em;
-    cursor: pointer;
-    transition: color 150ms ease-in-out;
-}
-
-.calendar input[type=radio]:checked+label {
-    color: var(--clr-primary);
-}
-
-.calendar input[type=radio].today+label::before {
-    position: absolute;
-    content: "";
-    width: 3px;
-    aspect-ratio: 1;
-    background-color: var(--clr-weekname);
-    border-radius: 50%;
-    bottom: calc(var(--padding-bottom) / 2);
-    translate: -25% -25%;
-    transition: background-color 150ms ease-in-out;
-}
-
-.calendar input[type=radio].today:checked+label::before {
-    background-color: var(--clr-primary);
-}
-
-.calendar input[type=radio]:checked+label>span.week-name {
-    color: var(--clr-primary);
-}
-
-span.week-name {
-    font-size: .75em;
-    color: var(--clr-weekname);
-    transition: color 150ms ease-in-out;
-}
-
-main {
-    display: grid;
-    grid-template-areas: "title" "lessons";
-    align-items: start;
-}
-
-main>.title {
-    grid-area: title;
-    font-size: 1.25em;
-    margin-block: .75em;
-    text-transform: capitalize;
-}
-
-main > .lessons {
-    grid-area: lessons;
-    margin-block: 2em;
-    display: none;
-    gap: 2em;
-    justify-items: center;
-}
-
-main > .lessons.show {
-    display: grid;
-}
-
-.lessons > .title {
-    font-size: 1.125em;
-}
-
-
-
-.lessons > .loader {
-    display: flex;
-    gap: .5em;
-}
-
-.loader > .bouncer {
-    width: .75em;
-    aspect-ratio: 1;
-    background-color: var(--clr-primary);
-    border-radius: 50%;
-    filter: hue-rotate(calc(var(--i) * 20deg));
-    animation: bounce 1.5s ease-in-out calc(var(--i) * 150ms) infinite,
-    show-up 1s linear;
-}
-
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(2em);
-    }
-}
-
-@keyframes show-up {
-    0%, 75% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-
-
-.lesson {
-    width: 100%;
-    padding: 1.5em;
-    display: grid;
-    gap: 2em;
-    border-radius: 1em;
-    box-shadow: 0 0 10px color-mix(in lab, var(--clr-text-body) 12.5%, transparent);
-    background-color: var(--clr-bg-html);
-}
-
-.lesson.cancel {
-    background-color: color-mix(in lab, var(--clr-check-in-false) 30%, var(--clr-bg-html));
-}
-
-.lesson>.data {
-    display: grid;
-    gap: .85em;
-    grid-template-columns: 1fr auto;
-}
-
-
-.data>.name {
-    font-size: 1.25em;
-}
-
-.data>.type {
-    font-size: 0.75em;
-    line-height: 1;
-    height: fit-content;
-    padding: .25em .75em;
-    color: white;
-    border-radius: 50vw;
-    margin-top: 0.417em;
-    text-transform: capitalize;
-}
-
-.data>.type[type=lecture] {
-    background-color: var(--clr-bg-lesson-lecture);
-}
-
-.data>.type[type=tutorial] {
-    background-color: var(--clr-bg-lesson-tutorial);
-}
-
-.data>.type[type=event] {
-    background-color: var(--clr-bg-lesson-event);
-}
-
-
-.data>time {
-    color: var(--clr-text-lesson-time);
-}
-
-.data>.check {
-    grid-column: span 2;
-    font-size: .85em;
-}
-
-.check>.in,
-.check>.out {
-    line-height: 1;
-    background-color: var(--clr-check-in-false);
-    color: white;
-    padding: .1em 0.5em;
-    border-radius: .25em;
-}
-
-.check>.in.green,
-.check>.out.green {
-    background-color: var(--clr-check-in-true);
-}
-
-.data > .cancel {
-    display: flex;
-    grid-column: span 2;
-    gap: .5em;
-    color: var(--clr-check-in-false);
-}
 
 @media (max-width: 420px) {
     body {

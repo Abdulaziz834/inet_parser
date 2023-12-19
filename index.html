@@ -8,12 +8,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- <link rel="shortcut icon" href="./assets/favicon-circle.png" type="image/png"> 
-    <link rel="apple-touch-icon" href="./assets/favicon-curved.png" type="image/png"> -->
+    <link rel="shortcut icon" href="./assets/favicon-circle.png" type="image/png"> 
+    <link rel="apple-touch-icon" href="./assets/favicon-curved.png" type="image/png">
 
 
-    <link rel="stylesheet" href="style.css">
-    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="./js/script.js" defer></script>
+    <script src="./js/index.js" defer></script>
 </head>
 
 <body>
@@ -57,7 +59,10 @@
         </ul>
     </nav>
     <main>
-        <h2 class="title bold" data-diff="0">Schedule Today</h2>
+        <div class="header">
+            <h2 class="title bold" data-diff="0">Schedule Today</h2>
+            <a href="./plans.html" class="plans">Show plans</a>
+        </div>
         <div class="lessons" day="1">
             <div class="loader"><div class="bouncer" style="--i: 1"></div><div class="bouncer" style="--i: 2"></div><div class="bouncer" style="--i: 3"></div></div>
         </div>

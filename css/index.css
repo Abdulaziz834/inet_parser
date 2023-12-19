@@ -1,0 +1,359 @@
+.reg-user {
+    position: fixed;
+    display: none;
+    place-items: center;
+    inset: 0;
+    background-color: var(--clr-bg-html);
+    z-index: 10;
+}
+
+.reg-user .form-center {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    background-color: var(--clr-bg-html);
+    padding: 3em;
+    border-radius: 0.5em;
+    box-shadow: 0 0 10px color-mix(in lab, var(--clr-text-body) 25%, transparent);
+}
+
+.reg-user h2 {
+    text-transform: uppercase;
+    font-size: 1.5em;
+
+}
+
+.reg-user #user-login {
+    display: grid;
+    gap: 0.5em;
+}
+
+#user-login.error::before {
+    content: "Username or password is incorrect!";
+    text-align: center;
+    font-size: .75em;
+    color: var(--clr-check-in-false);
+}
+
+
+#user-login.error input {
+    border-color: var(--clr-check-in-false) !important;
+
+}
+
+#user-login .input-control {
+    display: grid;
+    grid-template-areas: "stack";
+    justify-items: end;
+    align-items: center;
+}
+
+#user-login .input-control>* {
+    grid-area: stack;
+}
+
+#user-login .input-control>input {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+    padding: 1em 1.175em;
+    border: 1px solid var(--clr-outline-body);
+    color: var(--clr-text-body);
+    border-radius: .5em;
+    outline: none;
+    font-size: 1rem;
+}
+
+#user-login input:focus-visible {
+    border-color: var(--clr-text-lesson-time);
+}
+
+#user-login input::placeholder {
+    color: var(--clr-outline-body);
+}
+
+.input-control>.icon {
+    padding-right: 1em;
+}
+
+#user-login>a {
+    text-align: right;
+    color: color-mix(in lab, var(--clr-primary) 60%, var(--clr-bg-body));
+    margin-block: 1em;
+    text-decoration: none;
+}
+
+#user-login>button[type='submit'] {
+    padding: 1em;
+    background-color: var(--clr-primary);
+    border: none;
+    border-radius: .5em;
+    cursor: pointer;
+    color: white;
+    font-family: inherit;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+#user-login>button[type='submit']:hover {
+    filter: brightness(.9);
+}
+
+
+header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2em;
+}
+
+header>h1 {
+    font-size: 1.5em;
+}
+
+header span.bold {
+    text-transform: capitalize;
+}
+
+header>.avatar {
+    outline: 2px solid color-mix(in oklab, var(--clr-primary) 70%, white);
+    outline-offset: 1px;
+    border-radius: 1em;
+}
+
+header img {
+    width: 3.75em;
+    aspect-ratio: 1;
+    border-radius: inherit;
+    background-color: var(--clr-text-lesson-time);
+    transition: opacity 300ms linear;
+}
+
+nav {
+    margin-block: 1.25em;
+}
+
+.calendar {
+    position: relative;
+    display: flex;
+    gap: .5em;
+    justify-content: center;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.calendar>.placer {
+    position: absolute;
+    border-radius: .5em;
+    background-color: var(--clr-bg-placer);
+    transition: left 150ms ease-in-out;
+}
+
+.calendar input[type=radio] {
+    appearance: none;
+    -webkit-appearance: none;
+    display: none;
+}
+
+.calendar > li {
+    display: grid;
+    place-items: var(--clr-check-in-true);
+}
+
+.calendar li object {
+    filter: var(--clr-text-nav-icon);
+}
+
+.calendar label {
+    --padding-bottom: 1em;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .25em;
+    padding: .5em .75em var(--padding-bottom) .75em;
+    cursor: pointer;
+    transition: color 150ms ease-in-out;
+}
+
+.calendar input[type=radio]:checked+label {
+    color: var(--clr-primary);
+}
+
+.calendar input[type=radio].today+label::before {
+    position: absolute;
+    content: "";
+    width: 3px;
+    aspect-ratio: 1;
+    background-color: var(--clr-weekname);
+    border-radius: 50%;
+    bottom: calc(var(--padding-bottom) / 2);
+    translate: -25% -25%;
+    transition: background-color 150ms ease-in-out;
+}
+
+.calendar input[type=radio].today:checked+label::before {
+    background-color: var(--clr-primary);
+}
+
+.calendar input[type=radio]:checked+label>span.week-name {
+    color: var(--clr-primary);
+}
+
+span.week-name {
+    font-size: .75em;
+    color: var(--clr-weekname);
+    transition: color 150ms ease-in-out;
+}
+
+main {
+    display: grid;
+    grid-template-areas: "header" "lessons";
+    align-items: start;
+}
+
+main>.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-area: header;
+    margin-block: .75em;
+}
+
+.header > h2.title {
+    font-size: 1.25em;
+    text-transform: capitalize;
+}
+
+main > .lessons {
+    grid-area: lessons;
+    margin-block: 2em;
+    display: none;
+    gap: 2em;
+    justify-items: center;
+}
+
+main > .lessons.show {
+    display: grid;
+}
+
+.lessons > .title {
+    font-size: 1.125em;
+}
+
+
+
+.lessons > .loader {
+    display: flex;
+    gap: .5em;
+}
+
+.loader > .bouncer {
+    width: .75em;
+    aspect-ratio: 1;
+    background-color: var(--clr-primary);
+    border-radius: 50%;
+    filter: hue-rotate(calc(var(--i) * 20deg));
+    animation: bounce 1.5s ease-in-out calc(var(--i) * 150ms) infinite,
+    show-up 1s linear;
+}
+
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(2em);
+    }
+}
+
+@keyframes show-up {
+    0%, 75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+.lesson {
+    width: 100%;
+    padding: 1.5em;
+    display: grid;
+    gap: 2em;
+    border-radius: 1em;
+    box-shadow: 0 0 10px color-mix(in lab, var(--clr-text-body) 12.5%, transparent);
+    background-color: var(--clr-bg-html);
+}
+
+.lesson.cancel {
+    background-color: color-mix(in lab, var(--clr-check-in-false) 30%, var(--clr-bg-html));
+}
+
+.lesson>.data {
+    display: grid;
+    gap: .85em;
+    grid-template-columns: 1fr auto;
+}
+
+
+.data>.name {
+    font-size: 1.25em;
+}
+
+.data>.type {
+    font-size: 0.75em;
+    line-height: 1;
+    height: fit-content;
+    padding: .25em .75em;
+    color: white;
+    border-radius: 50vw;
+    margin-top: 0.417em;
+    text-transform: capitalize;
+}
+
+.data>.type[type=lecture] {
+    background-color: var(--clr-bg-lesson-lecture);
+}
+
+.data>.type[type=tutorial] {
+    background-color: var(--clr-bg-lesson-tutorial);
+}
+
+.data>.type[type=event] {
+    background-color: var(--clr-bg-lesson-event);
+}
+
+
+.data>time {
+    color: var(--clr-text-lesson-time);
+}
+
+.data>.check {
+    grid-column: span 2;
+    font-size: .85em;
+}
+
+.check>.in,
+.check>.out {
+    line-height: 1;
+    background-color: var(--clr-check-in-false);
+    color: white;
+    padding: .1em 0.5em;
+    border-radius: .25em;
+}
+
+.check>.in.green,
+.check>.out.green {
+    background-color: var(--clr-check-in-true);
+}
+
+.data > .cancel {
+    display: flex;
+    grid-column: span 2;
+    gap: .5em;
+    color: var(--clr-check-in-false);
+}

