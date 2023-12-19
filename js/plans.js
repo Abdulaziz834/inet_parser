@@ -31,6 +31,7 @@ function fetchAttendances() {
 
 
 document.body.onload = () => {
+    getGreeting()
     getUser(getCookie("username"), getCookie("password"))
     fetchAttendances()
 }
