@@ -253,6 +253,7 @@ window.addEventListener("keydown", e => {
 })
 
 document.body.onload = () => {
+    getGreeting()
     getUser(getCookie("username"), getCookie("password"))
     const labels = document.querySelectorAll("label[data-date]");
     let thisDay = new Date()
