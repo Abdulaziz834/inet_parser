@@ -20,17 +20,20 @@ function getCookie(name) {
 
 
 function getGreeting() {
-      const currentHour = new Date().getHours();
+      const currentHour = new Date().getHours(),
+          salutationElem = document.querySelector("header span.salutation"),
+          salutation = "Day";
 
       if (currentHour >= 5 && currentHour < 9) {
-        return "Morning";
+        salutation = "Morning";
       } else if (currentHour >= 9 && currentHour < 13) {
-        return "Day";
+        salutation = "Day";
       } else if (currentHour >= 13 && currentHour < 17) {
-        return "Afternoon";
+        salutation = "Afternoon";
       } else {
-        return "Evening";
+        salutation = "Evening";
       }
+    salutationElem.textContent = salutation;
     }
 
 function getUser(username, password) {
