@@ -253,6 +253,16 @@ header img {
 }
 
 
+footer {
+    margin-top: 1.5em;
+    font-size: .75em;
+}
+
+footer a {
+    color: var(--clr-primary);
+}
+
+
 @media (max-width: 420px) {
     body {
         font-size: 13px;
