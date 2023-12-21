@@ -94,6 +94,10 @@ a {
     --clr-check-in-true: hsl(145, 64%, 37%);
     --clr-weekname: hsl(0, 0%, 73%);
     --clr-outline-body: hsl(0, 0%, 67%);
+
+
+
+    --url-icon-checkmark: url(../assets/icons/ios-checkmark-light.svg);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -103,6 +107,7 @@ a {
         --clr-text-body: hsl(0, 0%, 100%);
         --clr-bg-placer: color-mix(in lab, var(--clr-primary) 20%, transparent);
         --clr-text-nav-icon: contrast(0) brightness(2);
+        --url-icon-checkmark: url(../assets/icons/ios-checkmark-dark.svg);
     }
 }
 
@@ -118,108 +123,6 @@ body {
     background-color: var(--clr-bg-body);
     outline: 1px solid var(--clr-outline-body);
     color: var(--clr-text-body);
-}
-
-
-.reg-user {
-    position: fixed;
-    display: none;
-    place-items: center;
-    inset: 0;
-    background-color: var(--clr-bg-html);
-    z-index: 10;
-}
-
-.reg-user .form-center {
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-    background-color: var(--clr-bg-html);
-    padding: 3em;
-    border-radius: 0.5em;
-    box-shadow: 0 0 10px color-mix(in lab, var(--clr-text-body) 25%, transparent);
-}
-
-.reg-user h2 {
-    text-transform: uppercase;
-    font-size: 1.5em;
-
-}
-
-.reg-user #user-login {
-    display: grid;
-    gap: 0.5em;
-}
-
-#user-login.error::before {
-    content: "Username or password is incorrect!";
-    text-align: center;
-    font-size: .75em;
-    color: var(--clr-check-in-false);
-}
-
-
-#user-login.error input {
-    border-color: var(--clr-check-in-false) !important;
-
-}
-
-#user-login .input-control {
-    display: grid;
-    grid-template-areas: "stack";
-    justify-items: end;
-    align-items: center;
-}
-
-#user-login .input-control>* {
-    grid-area: stack;
-}
-
-#user-login .input-control>input {
-    width: 100%;
-    box-sizing: border-box;
-    font-family: inherit;
-    padding: 1em 1.175em;
-    border: 1px solid var(--clr-outline-body);
-    color: var(--clr-text-body);
-    border-radius: .5em;
-    outline: none;
-    font-size: 1rem;
-}
-
-#user-login input:focus-visible {
-    border-color: var(--clr-text-lesson-time);
-}
-
-#user-login input::placeholder {
-    color: var(--clr-outline-body);
-}
-
-.input-control>.icon {
-    padding-right: 1em;
-}
-
-#user-login>a {
-    text-align: right;
-    color: color-mix(in lab, var(--clr-primary) 60%, var(--clr-bg-body));
-    margin-block: 1em;
-    text-decoration: none;
-}
-
-#user-login>button[type='submit'] {
-    padding: 1em;
-    background-color: var(--clr-primary);
-    border: none;
-    border-radius: .5em;
-    cursor: pointer;
-    color: white;
-    font-family: inherit;
-    font-weight: 500;
-    letter-spacing: 1px;
-}
-
-#user-login>button[type='submit']:hover {
-    filter: brightness(.9);
 }
 
 

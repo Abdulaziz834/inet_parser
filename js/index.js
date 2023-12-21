@@ -107,6 +107,9 @@ function fetchLessons(startDate) {
         }
         else if (result.status == 401) {
             getUser(getCookie("username"), getCookie("password"))
+            setTimeout(() => {
+                fetchLessons(currentWeekStartDate)
+            }, 500)
         }
         throw new Error(result.status)
     }).then(data => {
@@ -253,8 +256,8 @@ window.addEventListener("keydown", e => {
 })
 
 document.body.onload = () => {
-    getGreeting()
     getUser(getCookie("username"), getCookie("password"))
+    getGreeting()
     const labels = document.querySelectorAll("label[data-date]");
     let thisDay = new Date()
     thisDay.setDate(thisDay.getDate() - 1)

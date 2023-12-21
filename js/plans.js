@@ -12,6 +12,9 @@ function fetchAttendances() {
         }
         else if (result.status == 401) {
             getUser(getCookie("username"), getCookie("password"))
+            setTimeout(() => {
+                fetchAttendances()
+            }, 500)
         }
         throw new Error(result.status)
     }).then(data => {

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MDIST Timetable</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./assets/favicon-circle.png" type="image/png">
+    <link rel="apple-touch-icon" href="./assets/favicon-curved.png" type="image/png">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/login.css">
+
+    <script src="./js/script.js" defer></script>
+    <script src="./js/login.js" defer></script>
+</head>
+
+<body>
+    <div class="form-center">
+        <h2 class="bold text-center">login to your Account</h2>
+        <form method="POST" id="user-login">
+            <div class="input-control">
+                <input type="text" autocomplete="username" name="username" id="username" placeholder="ID or phone number">
+                <div class="icon">
+                    <object data="./assets/icons/ios-person.svg" style="width: 18px; aspect-ratio: 1;"></object>
+                </div>
+            </div>
+            <div class="input-control">
+                <input type="password" autocomplete="current-password" name="password" id="password" placeholder="Password">
+                <div class="icon">
+                    <object data="./assets/icons/ios-key.svg" style="width: 18px; aspect-ratio: 1;"></object>
+                </div>
+            </div>
+            <div class="show-password">
+                <input type="checkbox" id="show-password">
+                <div class="checkbox"></div>
+                <label for="show-password">Show Password</label>
+            </div>
+            <a href="https://inet.mdis.uz/auth/forgot-password">Forgot Password?</a>
+            <button type="submit">LOGIN</button>
+        </form>
+    </div>
+</body>
+
+</html>
