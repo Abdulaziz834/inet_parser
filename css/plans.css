@@ -56,14 +56,22 @@ td:not(:first-child) {
     thead {
         display: none;
     }
-    td {
+
+    td[data-cell=module] {
+        font-size: 1.125em;
+        font-weight: 700;
+    }
+    td:not([data-cell-name-invisible]) {
         display: grid;
         grid-template-columns: 8ch auto;
         text-align: left !important;
+        font-weight: 600;
     }
-    td::before {
+
+    td:not([data-cell-name-invisible])::before {
         content: attr(data-cell) ": ";
         text-transform: capitalize;
-        font-weight: 600;
+        font-weight: 400;
+        color: var(--clr-text-lesson-time);
     }
 }

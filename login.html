@@ -19,29 +19,44 @@
 </head>
 
 <body>
+    
+    
     <div class="form-center">
-        <h2 class="bold text-center">login to your Account</h2>
-        <form method="POST" id="user-login">
-            <div class="input-control">
-                <input type="text" autocomplete="username" name="username" id="username" placeholder="ID or phone number">
-                <div class="icon">
-                    <object data="./assets/icons/ios-person.svg" style="width: 18px; aspect-ratio: 1;"></object>
+        <div class="stack">
+
+            <div class="logo bold">
+                <object data="./assets/icons/logo.svg"></object>
+                MDIST Timetable
+            </div>
+        </div>
+        <div class="stack">
+
+            <h2 class="bold">Timetable Access</h2>
+            <p>Fill spaces below to grand an access to your inet timetable</p>
+            <form method="POST" id="user-login">
+                <label for="username">ID, email or phone</label>
+                <div class="input-control">
+                    <input type="text" autocomplete="username" name="username" id="username" placeholder="e.g. b1234567">
+                    <div class="icon">
+                        <object data="./assets/icons/ios-person.svg" style="width: 18px; aspect-ratio: 1;"></object>
+                    </div>
                 </div>
-            </div>
-            <div class="input-control">
-                <input type="password" autocomplete="current-password" name="password" id="password" placeholder="Password">
-                <div class="icon">
-                    <object data="./assets/icons/ios-key.svg" style="width: 18px; aspect-ratio: 1;"></object>
+                <label for="password">Password</label>
+                <div class="input-control">
+                    <input type="password" autocomplete="current-password" name="password" id="password" placeholder="e.g. 123">
+                    <div class="icon">
+                        <object data="./assets/icons/ios-key.svg" style="width: 18px; aspect-ratio: 1;"></object>
+                    </div>
                 </div>
-            </div>
-            <div class="show-password">
-                <input type="checkbox" id="show-password">
-                <div class="checkbox"></div>
-                <label for="show-password">Show Password</label>
-            </div>
-            <a href="https://inet.mdis.uz/auth/forgot-password">Forgot Password?</a>
-            <button type="submit">LOGIN</button>
-        </form>
+                <div class="show-password">
+                    <input type="checkbox" id="show-password">
+                    <div class="checkbox"></div>
+                    <label for="show-password">Show Password</label>
+                </div>
+                <a href="https://inet.mdis.uz/auth/forgot-password">Forgot Password?</a>
+                <button type="submit">LOGIN</button>
+            </form>
+        </div>
     </div>
 </body>
 

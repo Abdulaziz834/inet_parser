@@ -1,7 +1,7 @@
 const template = document.querySelector("template#attendances"),
 tbody = document.querySelector("table tbody")
 function fetchAttendances() {
-    fetch("https://inet.mdis.uz/api/v1/education/students/attendances", {
+    fetch("https://inet.mdis.uz/api/v1/education/students/attendances?", {
         method: "GET",
         headers: {
             "Authorization": localStorage.getItem("access_token")

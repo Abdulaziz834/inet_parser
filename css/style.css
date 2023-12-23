@@ -94,7 +94,7 @@ a {
     --clr-check-in-true: hsl(145, 64%, 37%);
     --clr-weekname: hsl(0, 0%, 73%);
     --clr-outline-body: hsl(0, 0%, 67%);
-
+    --clr-white: #fff;
 
 
     --url-icon-checkmark: url(../assets/icons/ios-checkmark-light.svg);

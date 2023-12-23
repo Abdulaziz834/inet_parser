@@ -1,25 +1,81 @@
+html {
+    scrollbar-gutter: auto;
+}
+
 body {
     display: grid;
     place-items: center;
+    max-width: none;
+    position: relative;
+    isolation: isolate;
 }
 
 .form-center {
     display: flex;
-    flex-direction: column;
     gap: 2em;
     background-color: var(--clr-bg-html);
-    padding: 3em;
+    padding: 1em;
     border-radius: 0.5em;
     box-shadow: 0 0 10px color-mix(in lab, var(--clr-text-body) 25%, transparent);
 }
 
-h2 {
-    text-transform: uppercase;
-    font-size: 1.5em;
+.stack:first-child {
+    padding: 1em;
+    display: grid;
+    box-sizing: border-box;
+    background-image: linear-gradient(to right, #00F08B, #009FFE);
+    border-radius: 0.5em;
+}
 
+
+.logo {
+    display: flex;
+    justify-content: center;
+    font-size: 1.3em;
+    gap: 2em;
+    flex-direction: column;
+    align-items: center;
+    color: var(--clr-white);
+}
+
+
+
+.stack:last-child {
+    display: grid;
+    gap: .5em;
+    padding: 2em 2.5em 0 0;
+    z-index: 1;
+}
+
+
+
+@media (max-width: 825px) {
+    .stack:first-child {
+        position: absolute;
+        inset: 0 0 auto 0;
+        border-radius: 0;
+        align-items: start;
+        height: 25vw;
+        z-index: -1;
+    }
+    .logo {
+        flex-direction: row;
+    }
+    .stack:last-child {
+        padding: 1em;
+    }
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+p {
+    color: var(--clr-text-lesson-time);
 }
 
 #user-login {
+    margin-top: 1.5em;
     display: grid;
     gap: 0.5em;
 }
@@ -58,7 +114,8 @@ h2 {
     color: var(--clr-text-body);
     border-radius: .5em;
     outline: none;
-    font-size: 1rem;
+    font-size: 1em;
+    padding-right: 3em;
 }
 
 #user-login input:focus-visible {
@@ -88,6 +145,7 @@ h2 {
     aspect-ratio: 1;
     -webkit-appearance: none;
     appearance: none;
+    cursor: pointer;
 }
 
 #show-password + .checkbox {
@@ -107,12 +165,12 @@ h2 {
 #user-login>a {
     text-align: right;
     color: color-mix(in lab, var(--clr-primary) 60%, var(--clr-bg-body));
-    margin-block: 1em;
+    margin-block: .5em 2em;
     text-decoration: none;
 }
 
 #user-login>button[type='submit'] {
-    padding: 1em;
+    padding: .75em 1.75em;
     background-color: var(--clr-primary);
     border: none;
     border-radius: .5em;
@@ -121,6 +179,8 @@ h2 {
     font-family: inherit;
     font-weight: 500;
     letter-spacing: 1px;
+    width: fit-content;
+    margin-left: auto;
 }
 
 #user-login>button[type='submit']:hover {
