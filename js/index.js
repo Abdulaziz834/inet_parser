@@ -96,23 +96,7 @@ function fetchLessons(startDate) {
     endDate.setDate(startDate.getDate() + 6);
     const startDateFormat = startDate.toLocaleDateString("fr-ca"),
         endDateFormat = endDate.toLocaleDateString("fr-ca");
-    fetch(`https://inet.mdis.uz/api/v1/education/student/view/schedules?from=${startDateFormat}&to=${endDateFormat}`, {
-        method: "GET",
-        headers: {
-            "Authorization": localStorage.getItem("access_token")
-        }
-    }).then(result => {
-        if (result.status == 200) {
-            return result.json()
-        }
-        else if (result.status == 401) {
-            getUser(getCookie("username"), getCookie("password"))
-            setTimeout(() => {
-                fetchLessons(currentWeekStartDate)
-            }, 500)
-        }
-        throw new Error(result.status)
-    }).then(data => {
+    fetchData(`https://inet.mdis.uz/api/v1/education/student/view/schedules?from=${startDateFormat}&to=${endDateFormat}`).then(data => {
         const lessons = document.querySelectorAll(".lessons")
         lessons.forEach(lessonsElem => {
             lessonsElem.innerHTML = ""
@@ -161,14 +145,14 @@ function fetchLessons(startDate) {
                 else {
                     let dayOff = lessons[i - 1]
                     dayOff.classList.add("day-off")
-                    dayOff.innerHTML = '<h3 class="title bold text-center">This day is your day off.</h3><p class="text-center">Welcome to your well-deserved day off! Take this opportunity to relax, rejuvenate, and indulge in activities that bring you joy. Enjoy your day!</p>'
+                    dayOff.innerHTML = '<h3 class="alert-h3">This day is your day off.</h3><p class="text-center">Welcome to your well-deserved day off! Take this opportunity to relax, rejuvenate, and indulge in activities that bring you joy. Enjoy your day!</p>'
                 }
             }
         }
         else {
             lessons.forEach(lessonContainer => {
                 lessonContainer.classList.add("no-data")
-                lessonContainer.innerHTML = '<h3 class="title bold text-center">No further data is available.</h3><p class="text-center">Sorry pal, we didn\'t recieved any lessons for further dates. Maybe they are not scheduled yet.</p>'
+                lessonContainer.innerHTML = '<h3 class="alert-h3">No further data is available.</h3><p class="text-center">Sorry pal, we didn\'t recieved any lessons for further dates. Maybe they are not scheduled yet.</p>'
             })
         }
     })
@@ -255,16 +239,18 @@ window.addEventListener("keydown", e => {
     }
 })
 
-document.body.onload = () => {
-    getUser(getCookie("username"), getCookie("password"))
-    getGreeting()
+const loadPage = async () => {
+    await getUser(getCookie("username"), getCookie("password"))
+    await getGreeting()
     const labels = document.querySelectorAll("label[data-date]");
     let thisDay = new Date()
     thisDay.setDate(thisDay.getDate() - 1)
     let todayLabel = labels[thisDay.getDay()];
     todayLabel.previousSibling.click()
-    fetchLessons(currentWeekStartDate)
+    await fetchLessons(currentWeekStartDate)
     const checkedRadio = document.querySelector("input[type=radio]:checked")
     if (!checkedRadio) return
     changePlacer(checkedRadio.parentElement)
 }
+
+loadPage()

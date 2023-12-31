@@ -55,6 +55,7 @@ button {
     outline: transparent;
     background-color: transparent;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -84,7 +85,7 @@ a {
     --clr-bg-body: hsl(0, 0%, 93%);
     --clr-bg-html: hsl(0, 0%, 100%);
     --clr-text-body: hsl(0, 0%, 0%);
-    --clr-primary: hsl(215, 100%, 50%);
+    --clr-primary: #2a86ff;
     --clr-bg-placer: color-mix(in lab, var(--clr-primary) 25%, transparent);
     --clr-bg-lesson-lecture: hsl(0, 100%, 72%);
     --clr-bg-lesson-tutorial: hsl(37, 90%, 51%);
@@ -98,16 +99,20 @@ a {
 
 
     --url-icon-checkmark: url(../assets/icons/ios-checkmark-light.svg);
+    --url-icon-dropdown: url(../assets/icons/ios-arrow-down-light.svg);
+    --url-icon-dropup: url(../assets/icons/ios-arrow-up-light.svg);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --clr-bg-body: hsl(0, 0%, 15%);
-        --clr-bg-html: hsl(0, 0%, 13%);
+        --clr-bg-body: hsl(0, 0%, 13%);
+        --clr-bg-html: hsl(0, 0%, 10%);
         --clr-text-body: hsl(0, 0%, 100%);
         --clr-bg-placer: color-mix(in lab, var(--clr-primary) 20%, transparent);
         --clr-text-nav-icon: contrast(0) brightness(2);
         --url-icon-checkmark: url(../assets/icons/ios-checkmark-dark.svg);
+        --url-icon-dropdown: url(../assets/icons/ios-arrow-down-dark.svg);
+        --url-icon-dropup: url(../assets/icons/ios-arrow-up-dark.svg);
     }
 }
 
@@ -130,7 +135,7 @@ header {
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    gap: 2em;
+    gap: .5em 2em;
 }
 
 header>h1 {
@@ -153,6 +158,25 @@ header img {
     border-radius: inherit;
     background-color: var(--clr-text-lesson-time);
     transition: opacity 300ms linear;
+}
+
+header .student-info {
+    font-size: .85em;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    color: var(--clr-text-lesson-time);
+}
+
+.student-info span {
+    color: var(--clr-text-body);
+    text-transform: capitalize;
+}
+
+.alert-h3 {
+    font-size: 1.125em;
+    font-weight: 700;
+    text-align: center;
 }
 
 

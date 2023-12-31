@@ -23,7 +23,7 @@ body {
     padding: 1em;
     display: grid;
     box-sizing: border-box;
-    background-image: linear-gradient(to right, #00F08B, #009FFE);
+    background-image: linear-gradient(to right, #2980b9, #6dd5fa);
     border-radius: 0.5em;
 }
 

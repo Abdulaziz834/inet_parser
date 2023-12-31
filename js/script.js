@@ -21,7 +21,37 @@ function getCookie(name) {
 function getRequest(name){
     if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
        return decodeURIComponent(name[1]);
- }
+}
+
+function fetchData(URL, request_method="GET", params) {
+    if (!navigator.onLine) {
+        document.querySelector("main").classList.add("offline")
+        return
+    }
+    const options = {
+        method: request_method,
+        headers: {
+            "Authorization": localStorage.getItem("access_token"),
+        }
+    }
+    if (params) {
+        options.headers["Authorization"] = "Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtY2xpZW50LXBhc3N3b3JkMTIzNA=="
+        options.headers["Content-Type"] = "application/x-www-form-urlencoded";
+        options["body"] = params
+    }
+    return fetch(URL, options).then(result => {
+        if (result.status == 200) {
+            return result.json()
+        }
+        else if (result.status == 401) {
+            getUser(getCookie("username"), getCookie("password"))
+            setTimeout(() => {
+                fetchData(URL, request_method, params)
+            }, 500)
+        }
+        throw new Error(result.status)
+    })
+}
 
 
 function getGreeting() {
@@ -45,23 +75,13 @@ function getUser(username, password) {
     if (!(username && password)) {
         location.replace("/login.html?redirect_url=" + location.pathname)
     }
-    fetch('https://inet.mdis.uz/oauth/token', {
-        method: "POST",
-        headers: {
-            'Authorization': 'Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtY2xpZW50LXBhc3N3b3JkMTIzNA==',
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `username=${username}&password=${password}&grant_type=password`
-    }).then(res => {
-        if (res.status == 200) {
-            return res.json()
-        }
-        else if (res.status == 400) {
-            location.replace("/login.html?redirect_url=" + location.pathname)
-        }
-    }).then(text => {
+    fetchData('https://inet.mdis.uz/oauth/token', "POST", `username=${username}&password=${password}&grant_type=password`).then(text => {
         localStorage.setItem("access_token", `Bearer ${text.access_token}`)
         document.querySelector("header span.bold").textContent = text.user.fullName.split(" ")[0].toLowerCase()
         document.querySelector(".avatar > img").setAttribute("src", `https://inet.mdis.uz${text.user.avatar}`)
     })
+}
+
+window.ononline = e => {
+    loadPage()
 }

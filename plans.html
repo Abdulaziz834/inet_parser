@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="./assets/favicon-circle.png" type="image/png"> 
-    <link rel="apple-touch-icon" href="./assets/favicon-curved.png" type="image/png">
+    <link rel="shortcut icon" href="./assets/logos/favicon-circle.png" type="image/png"> 
+    <link rel="apple-touch-icon" href="./assets/logos/favicon-curved.png" type="image/png">
 
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/plans.css">
@@ -16,28 +17,45 @@
     <script src="./js/script.js" defer></script>
     <script src="./js/plans.js" defer></script>
 </head>
+
 <body>
     <header>
         <h1>Good <span class="salutation">Morning</span>, <br><span class="bold">&nbsp;</span></h1>
         <div class="avatar">
             <img src="" onerror="this.style.opacity = '0'" onload="this.style.opacity = '1'">
         </div>
+        <div class="student-info">
+            <p class="faculty">Faculty: <span class="semi-bold">Foundation Programme</span></p>
+            <p class="group">Group: <span class="semi-bold">100</span></p>
+        </div>
     </header>
     <main>
-        <a href="./index.html"><object data="./assets/icons/ios-arrow-back.svg" style="width: 1em; aspect-ratio: 1; filter: var(--clr-text-nav-icon);"></object>Back to Timetable</a>
-        <table>
-            <caption>Your absents for current semester</caption>
-            <thead>
-                <tr>
-                    <th class="semi-bold">Module</th>
-                    <th class="semi-bold">Lessons</th>
-                    <th class="semi-bold">Absent</th>
-                    <th class="semi-bold">Percent</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <a href="./index.html"><object data="./assets/icons/ios-arrow-back.svg"
+                style="width: 1em; aspect-ratio: 1; filter: var(--clr-text-nav-icon);"></object>Back to Timetable</a>
+
+        <div class="absents">
+            <h1>Your absents for</h1>
+            <div class="selects">
+                <div class="custom-select">
+                    <h5 class="selected-value">2023-2024</h5>
+                    <ul id="academic-year" style="--selected-item: 4">
+                        <li value="61" data-semesters="[61, 81]">2019-2020</li>
+                        <li value="81" data-semesters="[102, 121]">2020-2021</li>
+                        <li value="121" data-semesters="[162, 163]">2021-2022</li>
+                        <li value="141" data-semesters="[181, 182]">2022-2023</li>
+                        <li value="165" data-semesters="[201, 202]" class="selected">2023-2024</li>
+                    </ul>
+                </div>
+                <div class="custom-select">
+                    <h5 class="selected-value">1-semester</h5>
+                    <ul class="semester" id="semester" style="--selected-item: 0">
+                        <li value="201" class="selected">1-semester</li>
+                        <li value="202">2-semester</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="absents-container"></div>
+        </div>
     </main>
 
     <footer>
@@ -45,13 +63,23 @@
     </footer>
 
     <template id="attendances">
-        <tr>
-            <td data-cell="module" data-cell-name-invisible>English Plus (E1)</td>
-            <td data-cell="lessons">72</td>
-            <td data-cell="absent">1</td>
-            <td data-cell="percent">1.39%</td>
-        </tr>
+        <div class="absent">
+            <div class="heading-info">
+                <h4 class="name"></h4>
+                <h5 class="count"></h5>
+            </div>
+            <ul class="detailed-info">
+                <li data-cell="module code"></li>
+                <li data-cell="total lessons"></li>
+                <li data-cell="total hours"></li>
+                <li data-cell="seminar hours"></li>
+                <li data-cell="lecture hours"></li>
+                <!-- <button class="check-attendances">Check Attendances</button> -->
+            </ul>
+            <button class="show-info more" data-module-id="">Show More</button>
+        </div>
     </template>
 
 </body>
+
 </html>

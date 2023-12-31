@@ -1,21 +1,5 @@
-
 function getLoggingUser(username, password) {
-    fetch('https://inet.mdis.uz/oauth/token', {
-        method: "POST",
-        headers: {
-            'Authorization': 'Basic c3ByaW5nLXNlY3VyaXR5LW9hdXRoMi1yZWFkLWNsaWVudDpzcHJpbmctc2VjdXJpdHktb2F1dGgyLXJlYWQtY2xpZW50LXBhc3N3b3JkMTIzNA==',
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `username=${username}&password=${password}&grant_type=password`
-    }).then(res => {
-        if (res.status == 200) {
-            return res.json()
-        }
-        else if (res.status == 400) {
-            document.querySelector("form#user-login").classList.add("error")
-            throw new Error("no user")
-        }
-    }).then(data => {
+    fetchData('https://inet.mdis.uz/oauth/token', "POST", `username=${username}&password=${password}&grant_type=password`).then(data => {
         if (!getCookie("username")) {
             setCookie("username", username, 20)
         }
