@@ -15,7 +15,7 @@ nav {
     position: absolute;
     border-radius: .5em;
     background-color: var(--clr-bg-placer);
-    transition: left 150ms ease-in-out;
+    transition: 150ms ease-in-out;
 }
 
 .calendar input[type=radio] {

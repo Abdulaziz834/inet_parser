@@ -80,6 +80,10 @@ p {
     gap: 0.5em;
 }
 
+#user-login > label {
+    width: fit-content;
+}
+
 #user-login.error::before {
     content: "Username or password is incorrect!";
     text-align: center;
@@ -114,9 +118,15 @@ p {
     color: var(--clr-text-body);
     border-radius: .5em;
     outline: none;
-    font-size: 1em;
+    font-size: 13px;
     padding-right: 3em;
 }
+
+
+#user-login .input-control>input::placeholder {
+    color: var(--clr-weekname);
+}
+
 
 #user-login input:focus-visible {
     border-color: var(--clr-text-lesson-time);
@@ -163,7 +173,8 @@ p {
 }
 
 #user-login>a {
-    text-align: right;
+    width: fit-content;
+    margin-left: auto;
     color: color-mix(in lab, var(--clr-primary) 60%, var(--clr-bg-body));
     margin-block: .5em 2em;
     text-decoration: none;

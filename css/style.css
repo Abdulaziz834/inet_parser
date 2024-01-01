@@ -5,7 +5,7 @@
     padding: 0;
     font: inherit;
     box-sizing: border-box;
-    touch-action: manipulation;
+    touch-action: pan-y;
 
 }
 
@@ -82,22 +82,22 @@ a {
 
 
 :root {
-    --clr-bg-body: hsl(0, 0%, 93%);
-    --clr-bg-html: hsl(0, 0%, 100%);
-    --clr-text-body: hsl(0, 0%, 0%);
-    --clr-primary: #2a86ff;
+    --clr-bg-body: #E5E5EA;
+    --clr-bg-html: #F2F2F7;
+    --clr-text-body: #1C1C1E;
+    --clr-primary: #007AFF;
     --clr-bg-placer: color-mix(in lab, var(--clr-primary) 25%, transparent);
-    --clr-bg-lesson-lecture: hsl(0, 100%, 72%);
-    --clr-bg-lesson-tutorial: hsl(37, 90%, 51%);
-    --clr-bg-lesson-event: hsl(145, 63%, 42%);
-    --clr-text-lesson-time: hsl(0, 0%, 50%);
-    --clr-check-in-false: hsl(0, 75%, 60%);
-    --clr-check-in-true: hsl(145, 64%, 37%);
-    --clr-weekname: hsl(0, 0%, 73%);
-    --clr-outline-body: hsl(0, 0%, 67%);
+    --clr-bg-lesson-lecture: #FF6861;
+    --clr-bg-lesson-tutorial: #FF9F0A;
+    --clr-bg-lesson-event: #30DB5B;
+    --clr-text-lesson-time: #8E8E93;
+    --clr-check-in-false: #FF3B30;
+    --clr-check-in-true: #34C759;
+    --clr-weekname: #AEAEB2;
+    --clr-outline-body: #D1D1D6;
     --clr-white: #fff;
-
-
+    
+    
     --url-icon-checkmark: url(../assets/icons/ios-checkmark-light.svg);
     --url-icon-dropdown: url(../assets/icons/ios-arrow-down-light.svg);
     --url-icon-dropup: url(../assets/icons/ios-arrow-up-light.svg);
@@ -105,8 +105,11 @@ a {
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --clr-bg-body: hsl(0, 0%, 13%);
-        --clr-bg-html: hsl(0, 0%, 10%);
+        --clr-weekname: #636366;
+        --clr-bg-body: #2C2C2E;
+        --clr-bg-html: #1C1C1E;
+        --clr-primary: #0A84FF;
+        --clr-outline-body: #3A3A3C;
         --clr-text-body: hsl(0, 0%, 100%);
         --clr-bg-placer: color-mix(in lab, var(--clr-primary) 20%, transparent);
         --clr-text-nav-icon: contrast(0) brightness(2);

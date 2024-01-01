@@ -132,7 +132,7 @@ function fetchLessons(startDate) {
                         if (lesson.cancelReason) {
                             let cancel = document.createElement("div");
                             cancel.classList.add("cancel");
-                            cancel.innerHTML = `<object data="./assets/icons/ios-alert.svg"></object> Cancelled: ${lesson.cancelReason}`;
+                            cancel.innerHTML = `<object data="./assets/icons/ios-alert.svg" style="width: 20px; aspect-ratio: 1;"></object> Cancelled: ${lesson.cancelReason}`;
                             content.querySelector(".data").appendChild(cancel);
                             content.querySelector(".check").style.display = "none";
                             content.querySelector(".lesson").classList.add("cancel")
