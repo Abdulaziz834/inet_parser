@@ -43,13 +43,9 @@ function fetchData(URL, request_method="GET", params) {
         if (result.status == 200) {
             return result.json()
         }
-        else if (result.status == 401) {
-            getUser(getCookie("username"), getCookie("password"))
-            setTimeout(() => {
-                fetchData(URL, request_method, params)
-            }, 500)
+        else {
+            throw new Error(result.status)
         }
-        throw new Error(result.status)
     })
 }
 
@@ -73,7 +69,7 @@ function getGreeting() {
 
 function getUser(username, password) {
     if (!(username && password)) {
-        location.replace("/login.html?redirect_url=" + location.pathname)
+        location.replace("/login.html?redirect_url=" + location.pathname || "/")
     }
     fetchData('https://inet.mdis.uz/oauth/token', "POST", `username=${username}&password=${password}&grant_type=password`).then(text => {
         localStorage.setItem("access_token", `Bearer ${text.access_token}`)

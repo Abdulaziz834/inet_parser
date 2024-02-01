@@ -1,3 +1,10 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
 nav {
     margin-block: 1.25em;
 }
@@ -76,8 +83,9 @@ span.week-name {
 }
 
 main {
+    flex: 1;
     display: grid;
-    grid-template-areas: "header" "lessons";
+    grid-template-rows: auto 1fr;
     align-items: start;
 }
 
@@ -85,7 +93,6 @@ main>.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    grid-area: header;
     margin-block: .75em;
 }
 
@@ -95,7 +102,6 @@ main>.header {
 }
 
 main > .lessons {
-    grid-area: lessons;
     margin-block: 2em;
     display: none;
     gap: 2em;

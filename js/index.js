@@ -1,6 +1,7 @@
 const placer = document.querySelector(".placer"),
     inputsObj = Object.values(document.querySelectorAll("input[type=radio]")),
-    template = document.querySelector("template#lesson");
+    template = document.querySelector("template#lesson"),
+    main = document.querySelector("main");
 let previousRadio = document.querySelector("input[type=radio]:checked"),
     weekNumber = 0,
     touchStart;
@@ -155,6 +156,10 @@ function fetchLessons(startDate) {
                 lessonContainer.innerHTML = '<h3 class="alert-h3">No further data is available.</h3><p class="text-center">Sorry pal, we didn\'t recieved any lessons for further dates. Maybe they are not scheduled yet.</p>'
             })
         }
+    }).catch(err => {
+        setTimeout(() => {
+            fetchLessons(startDate)
+        }, 300)
     })
 }
 
@@ -212,24 +217,48 @@ window.onresize = () => {
 }
 
 
-window.addEventListener("touchstart", e => {
 
-    e.preventDefault()
-    touchStart = e.touches[0].clientX
+let touchStartPosition = 0;
+
+main.addEventListener("custom:swipe", e => {
+    userNavigate(e.detail.directionIndex)
 })
 
-window.addEventListener("touchend", e => {
-    if(e.touches.length != 0) return
-    let action = (touchStart - e.changedTouches[0].clientX) / 100;
-    if (action > 0) {
-        if (!Math.floor(action)) return
-        userNavigate(1)
-    }
-    else if (action < 0) {
-        if (!Math.ceil(action)) return
-        userNavigate(-1)
+
+main.addEventListener("touchstart", e => {
+    touchStartPosition = e.changedTouches[0].clientX;
+}, {passive: true})
+    
+main.addEventListener("touchend", e => {
+    if (e.changedTouches.length !== 1) return
+    const MIN_TRAVEL_DISTANCE = e.target.clientWidth / 5;
+    const travelDistance = touchStartPosition - e.changedTouches[0].clientX;
+    if (MIN_TRAVEL_DISTANCE < Math.abs(travelDistance)) {
+        let directionName;
+        let directionIndex;
+        if (travelDistance < 0) {
+            directionIndex = -1;
+            directionName = "right";
+        }
+        else {
+            directionIndex = 1;
+            directionName = "left";
+        }
+        const swipeEvent = new CustomEvent("custom:swipe", {
+            bubbles: true,
+            cancelable: true,
+            composed: true,
+            detail: {
+                directionIndex: directionIndex,
+                directionName: directionName,
+                travelDistance: travelDistance,
+                minTravelDistance: MIN_TRAVEL_DISTANCE,
+            }
+        })
+        e.target.dispatchEvent(swipeEvent);
     }
 })
+
 
 
 window.addEventListener("keydown", e => {

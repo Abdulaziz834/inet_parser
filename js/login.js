@@ -1,3 +1,8 @@
+const showPassword = document.querySelector("input#show-password"),
+passwordInput = document.querySelector("input#password"),
+formLogin = document.querySelector("#user-login");
+
+
 function getLoggingUser(username, password) {
     fetchData('https://inet.mdis.uz/oauth/token', "POST", `username=${username}&password=${password}&grant_type=password`).then(data => {
         if (!getCookie("username")) {
@@ -20,11 +25,11 @@ function getLoggingUser(username, password) {
             redirect_url = getRequest("redirect_url");
             location.replace(redirect_url)
         }
+    }).catch(() => {
+        formLogin.classList.add("error")
     })
 }
 
-const showPassword = document.querySelector("input#show-password"),
-passwordInput = document.querySelector("input#password")
 
 showPassword.onchange = e => {
     if (passwordInput.getAttribute("type") == "password") {
@@ -37,7 +42,7 @@ showPassword.onchange = e => {
 
 
 
-document.querySelector("#user-login").addEventListener("submit", e => {
+formLogin.addEventListener("submit", e => {
     let username, password;
     e.preventDefault()
     username = document.querySelector("#user-login input[name=username]").value
