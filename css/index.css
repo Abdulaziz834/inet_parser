@@ -177,6 +177,7 @@ main > .lessons.show {
 
 .data>.name {
     font-size: 1.25em;
+    text-wrap: balance;
 }
 
 .data>.type {
@@ -231,4 +232,17 @@ main > .lessons.show {
     grid-column: span 2;
     gap: .5em;
     color: var(--clr-check-in-false);
+}
+
+.data:last-child {
+    grid-template-columns: auto;
+}
+
+
+.data:last-child > .venue {
+    color: var(--clr-text-lesson-time);
+}
+
+.data:last-child > .venue .room {
+    color: var(--clr-text-body);
 }

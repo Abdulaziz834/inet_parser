@@ -146,7 +146,7 @@ function fetchLessons(startDate) {
                 else {
                     let dayOff = lessons[i - 1]
                     dayOff.classList.add("day-off")
-                    dayOff.innerHTML = '<h3 class="alert-h3">This day is your day off.</h3><p class="text-center">Welcome to your well-deserved day off! Take this opportunity to relax, rejuvenate, and indulge in activities that bring you joy. Enjoy your day!</p>'
+                    dayOff.innerHTML = '<h3 class="alert-h3">This day is your day off.</h3><p class="text-center">It is your day off to relax and do what makes you happy! Enjoy your break!</p>'
                 }
             }
         }
