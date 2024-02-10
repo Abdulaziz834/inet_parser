@@ -69,7 +69,9 @@ function getGreeting() {
 
 function getUser(username, password) {
     if (!(username && password)) {
-        location.replace("/login.html?redirect_url=" + location.pathname || "/")
+        if (location.pathname !== "/login.html") {
+            location.replace("/login.html?redirect_url=" + location.pathname || "/")
+        }
     }
     fetchData('https://inet.mdis.uz/oauth/token', "POST", `username=${username}&password=${password}&grant_type=password`).then(text => {
         localStorage.setItem("access_token", `Bearer ${text.access_token}`)
@@ -81,3 +83,5 @@ function getUser(username, password) {
 window.ononline = e => {
     loadPage()
 }
+
+getUser(getCookie("username"), getCookie("password"))

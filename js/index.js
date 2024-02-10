@@ -56,7 +56,7 @@ function changeLessons(input) {
             { opacity: "0" },
             { opacity: "1" },
         ], {
-            duration: 200,
+            duration: (index + 1) * 200,
             iterations: 1,
             delay: index * 100,
             fill: "both",

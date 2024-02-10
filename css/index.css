@@ -170,13 +170,13 @@ main > .lessons.show {
 
 .lesson>.data {
     display: grid;
-    gap: .85em;
+    gap: .45em;
     grid-template-columns: 1fr auto;
 }
 
 
 .data>.name {
-    font-size: 1.25em;
+    font-size: 1.125em;
     text-wrap: balance;
 }
 
@@ -209,6 +209,7 @@ main > .lessons.show {
 }
 
 .data>.check {
+    margin-top: .5em;
     grid-column: span 2;
     font-size: .85em;
 }
