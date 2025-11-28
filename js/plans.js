@@ -92,7 +92,7 @@ customSelects.forEach(customSelect => {
 const loadPage = async () => {
     await getGreeting()
     await getUser(getCookie("username"), getCookie("password"))
-    fetchAttendances("242")
+    fetchAttendances("261")
     fetchStudent()
 }
 
